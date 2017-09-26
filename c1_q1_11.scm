@@ -1,4 +1,3 @@
-#! sicp question 1.11
 (define (f n)
   (if (< n 3)
       n
