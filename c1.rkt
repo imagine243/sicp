@@ -22,12 +22,14 @@
     )
 ;; (abs -5)
 
+
 ;; ;; ; 另外一个cond 版本 的abs
 ;; (define (abs x)
 ;;   (cond ((< x 0) (- x))
 ;;         (else x))
 ;;   )
 ;; (abs -10)
+
 
 ;; ;; ; other if version abs
 ;; (define (abs x)
@@ -58,7 +60,6 @@
 ;; (sqrt 5.0)
 
 
-
 ;; ;1.3 抽象出的区间sum过程  只关注于sum求和
 (define (sum term a next b)
   (if (> a b)
@@ -66,7 +67,46 @@
       (+ (term a) (sum term (next a) next b)))
   )
 
-;; ;1-10 sum square
-(define (inc n) (+ n 1))
-(define (sum-square a b) (sum square a inc b))
-(sum-square 1 5)
+
+;; ;; ;1-10 sum square
+;; (define (inc n) (+ n 1))
+;; (define (sum-square a b) (sum square a inc b))
+;; (sum-square 1 5)
+
+;; ;1-10 sum square with lambda
+(define (sum-square a b)
+  (sum (lambda (x) (* x x))
+       a
+       (lambda (x) (+ x 1))
+       b))
+(sum-square 1 10)
+
+;; ;; ;lambda表达式的一般形式
+;; (lambda (var1 var2 ......) (body))
+;; ;; ;lambda 表达式的调用
+;; ((lambda (var1 var2 ......) (body)) param1 param2)
+
+
+;; ;; ;lambda 模拟局部变量  lambda函数后是实际的参数
+;; (define (f x y) ((lambda (a b)
+;;                    (+ (* x (square a))
+;;                       (* y b)
+;;                       (* a b)))
+;;                  (+ 1 (* x y))
+;;                  (- 1 y)))
+
+
+;; ;; ;let 定义局部变量
+;; (define (f x y)
+;;   (let ((a (+ 1 (* x y)))
+;;         (b (- 1 y)))
+;;     (+ (* x (square a))
+;;        (* y b)
+;;        (* a b))))
+
+
+;; ;; ;let 表达式的一般形式
+;; (let ((var1 exp1)
+;;       (var2 exp2)
+;;       ......)
+;;   body)
